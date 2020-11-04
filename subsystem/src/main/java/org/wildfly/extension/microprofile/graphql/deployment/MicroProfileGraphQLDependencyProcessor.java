@@ -16,6 +16,7 @@
 
 package org.wildfly.extension.microprofile.graphql.deployment;
 
+import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -24,6 +25,9 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.as.server.deployment.annotation.CompositeIndex;
 import org.jboss.as.server.deployment.module.ModuleDependency;
 import org.jboss.as.server.deployment.module.ModuleSpecification;
+import org.jboss.as.weld.WeldCapability;
+import org.jboss.as.weld.deployment.BeanDeploymentArchiveImpl;
+import org.jboss.as.weld.deployment.WeldAttachments;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleLoader;
 
@@ -42,6 +46,18 @@ public class MicroProfileGraphQLDependencyProcessor implements DeploymentUnitPro
             // this is an equivalent of meta-inf="import" in jboss-deployment-structure.xml and is needed to be able to see CDI beans from the module
             dependency.addImportFilter(s -> s.equals("META-INF"), true);
             moduleSpecification.addSystemDependency(dependency);
+
+            ModuleDependency dependency2 = new ModuleDependency(moduleLoader, "io.jaegertracing.jaeger", false, true, true, false);
+            dependency2.addImportFilter(s -> s.equals("META-INF"), true);
+            moduleSpecification.addSystemDependency(dependency2);
+
+            ModuleDependency dependency3 = new ModuleDependency(moduleLoader, "org.wildfly.extension.microprofile.opentracing-smallrye", false, true, true, false);
+            dependency3.addImportFilter(s -> s.equals("META-INF"), true);
+            moduleSpecification.addSystemDependency(dependency3);
+
+            AttachmentList<BeanDeploymentArchiveImpl> modules = deploymentUnit.getAttachment(WeldAttachments.);
+            WeldCapability w;
+            phaseContext.
         }
     }
 

@@ -1,6 +1,10 @@
 package org.wildfly.extras.quickstart.microprofile.graphql;
 
+import io.opentracing.Tracer;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.CDI;
+import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -11,11 +15,16 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class GalaxyService {
 
+    @Inject
+    Tracer tracer;
+
     private List<Hero> heroes = new ArrayList<>();
 
     private List<Film> films = new ArrayList<>();
 
     public GalaxyService() {
+
+
 
         Film aNewHope = new Film();
         aNewHope.setTitle("A New Hope");
@@ -73,6 +82,14 @@ public class GalaxyService {
     }
 
     public List<Film> getAllFilms() {
+        System.out.println("------- TRACER = " + tracer);
+        CDI<Object> current = CDI.current();
+        System.out.println("CDI in application = " + current  + "/ " + current.hashCode());
+        System.out.println("BEAN MANAGER = " + current.getBeanManager());
+        System.out.println("BEAN MANAGER beans with Tracer type = " + current.getBeanManager().getBeans(Tracer.class));
+        System.out.println("TCCL in app = " + Thread.currentThread().getContextClassLoader());
+        System.out.println("Tracer class: " + Tracer.class.hashCode() + ", " + Tracer.class.getClassLoader());
+        System.out.println("--- LOOKUP: " + current.select(Tracer.class).get());
         return films;
     }
 
