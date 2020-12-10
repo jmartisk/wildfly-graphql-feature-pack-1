@@ -38,6 +38,12 @@
     </licenses>
 
     <properties>
+<!--        <wildfly.groupId>org.wildfly</wildfly.groupId> &lt;!&ndash; org.jboss.eap if the 'eap' profile is active &ndash;&gt;-->
+
+
+        <version.eap>7.3.4.GA-redhat-00003</version.eap>   <!-- for testing only -->
+        <wildfly.groupId.for.testing>org.wildfly</wildfly.groupId.for.testing>
+
         <!-- Target WildFly version, and other parts needed for the Galleon maven plugin -->
         <version.org.wildfly>21.0.0.Final</version.org.wildfly>
         <version.org.wildfly.core>12.0.1.Final</version.org.wildfly.core>
@@ -293,8 +299,11 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
+<!--                <groupId>org.jboss.bom</groupId>-->
                 <artifactId>wildfly-component-matrix</artifactId>
+<!--                <artifactId>eap-runtime-artifacts</artifactId>-->
                 <version>${version.org.wildfly}</version>
+<!--                <version>7.3.4.GA</version>-->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -471,6 +480,26 @@
                     --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED
                     --add-modules=java.se</modular.jdk.args>
             </properties>
+        </profile>
+        <profile>
+            <id>eap</id>
+            <properties>
+                <wildfly.groupId.for.testing>org.jboss.eap</wildfly.groupId.for.testing>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>eap-product-repository</id>
+                    <url>https://maven.repository.redhat.com/ga/</url>
+                </repository>
+            </repositories>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.universe</groupId>
+                    <artifactId>product-universe</artifactId>
+                    <version>7.3.0.CD18-redhat-00002</version>  <!-- ???? which version -->
+<!--                    <scope>provided</scope>-->
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 </project>

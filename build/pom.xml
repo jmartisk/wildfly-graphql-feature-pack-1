@@ -77,7 +77,7 @@
                             <feature-packs>
                                 <feature-pack>
                                     <transitive>true</transitive>
-                                    <groupId>org.wildfly</groupId>
+                                    <groupId>${wildfly.groupId}</groupId>
                                     <artifactId>wildfly-galleon-pack</artifactId>
                                     <version>${version.org.wildfly}</version>
                                     <inherit-packages>false</inherit-packages>
@@ -125,7 +125,7 @@
                             <feature-packs>
                                 <feature-pack>
                                     <transitive>true</transitive>
-                                    <groupId>org.wildfly</groupId>
+                                    <groupId>${wildfly.groupId}</groupId>
                                     <artifactId>wildfly-galleon-pack</artifactId>
                                     <version>${version.org.wildfly}</version>
                                     <inherit-packages>false</inherit-packages>

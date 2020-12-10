@@ -143,6 +143,13 @@
             <type>pom</type>
             <version>${version.io.smallrye.graphql}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.jboss.universe</groupId>
+            <artifactId>product-universe</artifactId>
+            <version>7.3.0.CD18-redhat-00002</version>  <!-- ???? which version -->
+            <!--                    <scope>provided</scope>-->
+        </dependency>
     </dependencies>
 
     <build>
@@ -170,9 +177,10 @@
                             <feature-packs>
                                 <feature-pack>
                                     <transitive>true</transitive>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-galleon-pack</artifactId>
-                                    <version>${version.org.wildfly}</version>
+                                    <groupId>${wildfly.groupId.for.testing}</groupId>
+                                    <artifactId>wildfly-ee-galleon-pack</artifactId> <!-- TODO wildfly-ee- for base wildfly- for XP -->
+<!--                                    <version>${version.org.wildfly}</version>-->
+                                    <version>${version.eap}</version> <!-- TODO -->
                                     <inherit-packages>false</inherit-packages>
                                     <inherit-configs>false</inherit-configs>
                                 </feature-pack>
