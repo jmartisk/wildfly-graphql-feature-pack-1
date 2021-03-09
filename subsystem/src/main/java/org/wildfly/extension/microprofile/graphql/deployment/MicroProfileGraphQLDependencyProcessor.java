@@ -42,6 +42,11 @@ public class MicroProfileGraphQLDependencyProcessor implements DeploymentUnitPro
             // this is an equivalent of meta-inf="import" in jboss-deployment-structure.xml and is needed to be able to see CDI beans from the module
             dependency.addImportFilter(s -> s.equals("META-INF"), true);
             moduleSpecification.addSystemDependency(dependency);
+
+            // this is to make the deployment class loader see the ServiceLoader entry for io.smallrye.graphql.cdi.metrics.MPMetricsService (it's in the subsystem's jar)
+            // TODO: this is probably bad, but how to do it better? We need the deployment TCCL to see our META-INF/services/io.smallrye.graphql.spi.EventingService
+            ModuleDependency serviceDep = new ModuleDependency(moduleLoader, "org.wildfly.extension.microprofile.graphql-smallrye", false, true, true, false);
+            moduleSpecification.addSystemDependency(serviceDep);
         }
     }
 

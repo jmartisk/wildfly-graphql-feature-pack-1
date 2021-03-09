@@ -49,7 +49,7 @@
 
         <!-- Libraries provided by this feature pack. These variables directly affect what will be in
              the built feature pack. -->
-        <version.io.smallrye.graphql>1.0.23</version.io.smallrye.graphql>
+        <version.io.smallrye.graphql>1.0.24-SNAPSHOT</version.io.smallrye.graphql>
         <version.org.eclipse.microprofile.graphql>1.0.4</version.org.eclipse.microprofile.graphql>
         <version.com.graphql-java>16.2</version.com.graphql-java>
         <version.com.graphql-java.dataloader>2.2.3</version.com.graphql-java.dataloader>
@@ -122,6 +122,11 @@
             <name>JBoss Enterprise Maven Repository</name>
             <url>${maven.redhat.repository.url}</url>
             <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>microprofile-graphql104-staging</id>
+            <url>https://oss.sonatype.org/content/repositories/orgeclipsemicroprofile-1438</url>
         </repository>
     </repositories>
 
