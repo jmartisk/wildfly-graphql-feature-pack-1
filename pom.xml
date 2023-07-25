@@ -39,10 +39,10 @@
 
     <properties>
 	    <!-- Target WildFly version, and other parts needed for the Galleon maven plugin -->
-        <version.org.wildfly>28.0.1.Final</version.org.wildfly>
-        <version.org.wildfly.core>20.0.1.Final</version.org.wildfly.core>
+        <version.org.wildfly>29.0.0.Final</version.org.wildfly>
+        <version.org.wildfly.core>21.1.0.Final</version.org.wildfly.core>
         <version.org.wildfly.common>1.6.0.Final</version.org.wildfly.common>
-        <version.org.jboss.galleon>5.1.0.Final</version.org.jboss.galleon>
+        <version.org.jboss.galleon>5.2.0.Final</version.org.jboss.galleon>
 
         <!-- Other WildFly feature pack that we depend on -->
         <version.org.wildfly.reactive-feature-pack>3.0.0.Final</version.org.wildfly.reactive-feature-pack> 
@@ -75,7 +75,9 @@
         <version.tyrus>1.1</version.tyrus>
         <version.junit>4.13.1</version.junit>
         <version.rest-assured>5.3.0</version.rest-assured>
+        <version.org.wildfly.arquillian>5.0.0.Final</version.org.wildfly.arquillian>
         <version.arquillian-junit>1.7.0.Alpha12</version.arquillian-junit>
+        <version.org.testng>7.8.0</version.org.testng>
 
         <!-- Plugin versions and their dependency versions -->
         <version.org.wildfly.checkstyle-config>1.0.8.Final</version.org.wildfly.checkstyle-config>
@@ -530,6 +532,26 @@
                 <groupId>io.rest-assured</groupId>
                 <artifactId>rest-assured</artifactId>
                 <version>${version.rest-assured}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.arquillian</groupId>
+                <artifactId>wildfly-arquillian</artifactId>
+                <version>${version.org.wildfly.arquillian}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.arquillian</groupId>
+                <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
+                <version>${version.org.wildfly.arquillian}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.arquillian</groupId>
+                <artifactId>wildfly-arquillian-container-managed</artifactId>
+                <version>${version.org.wildfly.arquillian}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${version.org.testng}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
