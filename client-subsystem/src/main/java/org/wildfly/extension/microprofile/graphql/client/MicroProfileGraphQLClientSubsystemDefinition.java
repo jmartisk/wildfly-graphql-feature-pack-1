@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.wildfly.extension.microprofile.graphql;
+package org.wildfly.extension.microprofile.graphql.client;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.AttributeDefinition;
@@ -22,23 +22,24 @@ import org.jboss.as.controller.ModelOnlyRemoveStepHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.PersistentResourceDefinition;
-import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.capability.RuntimeCapability;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
-import org.wildfly.extension.microprofile.graphql._private.MicroProfileGraphQLLogger;
-import org.wildfly.extension.microprofile.graphql.client.deployment.GraphiQLUIDeploymentProcessor;
-import org.wildfly.extension.microprofile.graphql.client.deployment.MicroProfileGraphQLDependencyProcessor;
-import org.wildfly.extension.microprofile.graphql.client.deployment.MicroProfileGraphQLDeploymentProcessor;
+//import org.wildfly.extension.microprofile.graphql._private.MicroProfileGraphQLLogger;
+import org.wildfly.extension.microprofile.graphql.client.deployment.MicroProfileGraphQLClientDependencyProcessor;
+import org.wildfly.extension.microprofile.graphql.client.deployment.MicroProfileGraphQLClientDeploymentProcessor;
 
 import java.util.Collection;
 import java.util.Collections;
 
-import static org.wildfly.extension.microprofile.graphql.MicroProfileGraphQLExtension.*;
+import static org.wildfly.extension.microprofile.graphql.client.MicroProfileGraphQLClientExtension.CONFIG_CAPABILITY_NAME;
+import static org.wildfly.extension.microprofile.graphql.client.MicroProfileGraphQLClientExtension.SUBSYSTEM_NAME;
+import static org.wildfly.extension.microprofile.graphql.client.MicroProfileGraphQLClientExtension.SUBSYSTEM_PATH;
+import static org.wildfly.extension.microprofile.graphql.client.MicroProfileGraphQLClientExtension.WELD_CAPABILITY_NAME;
 
-public class MicroProfileGraphQLSubsystemDefinition extends PersistentResourceDefinition {
+public class MicroProfileGraphQLClientSubsystemDefinition extends PersistentResourceDefinition {
 
     private static final String GRAPHQL_CAPABILITY_NAME = "org.wildfly.microprofile.graphql";
 
@@ -49,11 +50,11 @@ public class MicroProfileGraphQLSubsystemDefinition extends PersistentResourceDe
             .addRequirements()
             .build();
 
-    public MicroProfileGraphQLSubsystemDefinition() {
+    public MicroProfileGraphQLClientSubsystemDefinition() {
         super(
-                new SimpleResourceDefinition.Parameters(
+                new Parameters(
                         SUBSYSTEM_PATH,
-                        MicroProfileGraphQLExtension.getResourceDescriptionResolver(SUBSYSTEM_NAME))
+                        MicroProfileGraphQLClientExtension.getResourceDescriptionResolver(SUBSYSTEM_NAME))
                         .setAddHandler(AddHandler.INSTANCE)
                         .setRemoveHandler(new ModelOnlyRemoveStepHandler())
                         .setCapabilities(GRAPHQL_CAPABILITY)
@@ -80,15 +81,13 @@ public class MicroProfileGraphQLSubsystemDefinition extends PersistentResourceDe
             context.addStep(new AbstractDeploymentChainStep() {
                 public void execute(DeploymentProcessorTarget processorTarget) {
                     final int DEPENDENCIES_MICROPROFILE_GRAPHQL = 6288;
-                    processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_MICROPROFILE_GRAPHQL, new MicroProfileGraphQLDependencyProcessor());
-                    final int GRAPHIQL_UI = 8193;
-                    processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.POST_MODULE, GRAPHIQL_UI, new GraphiQLUIDeploymentProcessor());
+                    processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_MICROPROFILE_GRAPHQL, new MicroProfileGraphQLClientDependencyProcessor());
                     final int POST_MODULE_MICROPROFILE_GRAPHQL = 14241;
-                    processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_MICROPROFILE_GRAPHQL, new MicroProfileGraphQLDeploymentProcessor());
+                    processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_MICROPROFILE_GRAPHQL, new MicroProfileGraphQLClientDeploymentProcessor());
                 }
             }, OperationContext.Stage.RUNTIME);
 
-            MicroProfileGraphQLLogger.LOGGER.activatingSubsystem();
+//            MicroProfileGraphQLLogger.LOGGER.activatingSubsystem();
         }
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.wildfly.extension.microprofile.graphql.deployment;
+package org.wildfly.extension.microprofile.graphql.client.deployment;
 
 import org.jboss.as.ee.component.EEModuleDescription;
 import org.jboss.as.ee.structure.DeploymentType;

@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package org.wildfly.extension.microprofile.graphql.deployment;
+package org.wildfly.extension.microprofile.graphql.client.deployment;
+//      org.wildfly.extension.microprofile.graphql-client-smallrye
 
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -22,26 +23,26 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.as.server.deployment.annotation.CompositeIndex;
-import org.jboss.as.server.deployment.module.ModuleDependency;
-import org.jboss.as.server.deployment.module.ModuleSpecification;
-import org.jboss.modules.Module;
-import org.jboss.modules.ModuleLoader;
+import org.jboss.logging.Logger;
 
-import static org.wildfly.extension.microprofile.graphql.deployment.MicroProfileGraphQLDeploymentProcessor.ANNOTATION_GRAPHQL_API;
+import static org.wildfly.extension.microprofile.graphql.client.deployment.MicroProfileGraphQLClientDeploymentProcessor.GRAPHQL_CLIENT_API;
 
-public class MicroProfileGraphQLDependencyProcessor implements DeploymentUnitProcessor {
+public class MicroProfileGraphQLClientDependencyProcessor implements DeploymentUnitProcessor {
+
+    static final Logger LOG = Logger.getLogger(MicroProfileGraphQLClientDependencyProcessor.class);
 
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         final DeploymentUnit deploymentUnit = phaseContext.getDeploymentUnit();
         final CompositeIndex compositeIndex = deploymentUnit.getAttachment(Attachments.COMPOSITE_ANNOTATION_INDEX);
-        if(!compositeIndex.getAnnotations(ANNOTATION_GRAPHQL_API).isEmpty()) {
-            final ModuleSpecification moduleSpecification = deploymentUnit.getAttachment(Attachments.MODULE_SPECIFICATION);
-            final ModuleLoader moduleLoader = Module.getBootModuleLoader();
-            ModuleDependency dependency = new ModuleDependency(moduleLoader, "io.smallrye.graphql", false, false, true, false);
-            // this is an equivalent of meta-inf="import" in jboss-deployment-structure.xml and is needed to be able to see CDI beans from the module
-            dependency.addImportFilter(s -> s.equals("META-INF"), true);
-            moduleSpecification.addSystemDependency(dependency);
+        if(!compositeIndex.getAnnotations(GRAPHQL_CLIENT_API).isEmpty()) {
+            LOG.info("GRAPHQL CLIENT API FOUND");
+//            final ModuleSpecification moduleSpecification = deploymentUnit.getAttachment(Attachments.MODULE_SPECIFICATION);
+//            final ModuleLoader moduleLoader = Module.getBootModuleLoader();
+//            ModuleDependency dependency = new ModuleDependency(moduleLoader, "io.smallrye.graphql.client.vertx", false, false, true, false);
+//             this is an equivalent of meta-inf="import" in jboss-deployment-structure.xml and is needed to be able to see CDI beans from the module
+//            dependency.addImportFilter(s -> s.equals("META-INF"), true);
+//            moduleSpecification.addSystemDependency(dependency);
         }
     }
 

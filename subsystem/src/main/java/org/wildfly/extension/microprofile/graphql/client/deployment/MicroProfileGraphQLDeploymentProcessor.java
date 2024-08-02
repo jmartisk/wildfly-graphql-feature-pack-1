@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.wildfly.extension.microprofile.graphql.deployment;
+package org.wildfly.extension.microprofile.graphql.client.deployment;
 
 import io.smallrye.graphql.entry.http.ExecutionServlet;
 import io.smallrye.graphql.entry.http.SchemaServlet;

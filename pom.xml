@@ -42,7 +42,7 @@
         <version.org.wildfly>31.0.1.Final</version.org.wildfly>
         <version.org.wildfly.core>23.0.3.Final</version.org.wildfly.core>
         <version.org.wildfly.common>1.6.0.Final</version.org.wildfly.common>
-        <version.org.jboss.galleon>5.2.2.Final</version.org.jboss.galleon>
+        <version.org.jboss.galleon>6.0.2.Final</version.org.jboss.galleon>
 
         <!-- Other WildFly feature pack that we depend on -->
         <version.org.wildfly.reactive-feature-pack>3.0.0.Final</version.org.wildfly.reactive-feature-pack> 
@@ -685,6 +685,9 @@
         <module>build</module>
         <module>testsuite</module>
         <module>quickstart</module>
+        <module>quickstart-client</module>
+        <module>client-subsystem</module>
+
     </modules>
 
 </project>
