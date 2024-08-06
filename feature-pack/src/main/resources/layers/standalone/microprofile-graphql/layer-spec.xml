@@ -26,6 +26,7 @@
     </dependencies>
 
     <feature-group name="graphql"/>
+    <feature-group name="graphql-client"/>
 
     <packages>
         <package name="org.wildfly.extension.microprofile.graphql-smallrye"/>

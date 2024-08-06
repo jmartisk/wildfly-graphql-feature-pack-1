@@ -17,5 +17,4 @@
 
 <feature-group-spec name="graphql" xmlns="urn:jboss:galleon:feature-group:1.0">
     <feature spec="subsystem.microprofile-graphql-smallrye"/>
-    <feature spec="subsystem.microprofile-graphql-client-smallrye"/>
 </feature-group-spec>

@@ -33,5 +33,6 @@
         <module name="org.jboss.jandex"/>
         <module name="org.jboss.logging"/>
         <module name="io.smallrye.graphql.client.vertx" export="true"/>
+	<module name="org.jboss.staxmapper"/>
     </dependencies>
 </module>
